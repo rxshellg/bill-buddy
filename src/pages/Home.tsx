@@ -7,7 +7,7 @@ const Home = () => {
     const isMobile = useIsMobile();
     const buttons = (
         <div className={styles.buttonOptions}>
-            <Link to="/Upload"><button className="pinkButton">Upload a receipt</button></Link>
+            <button className="pinkButton">Upload a receipt</button>
             <Link to="/Calculator"><button className="whiteButton">Split manually</button></Link>
         </div>
     );
