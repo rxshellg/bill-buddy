@@ -5,7 +5,12 @@ import styles from './Home.module.css';
 
 const Home = () => {
     const isMobile = useIsMobile();
-    const button = (<Link to="/Calculator"><button className="whiteButton">Get started</button></Link>)
+    const buttons = (
+        <div className={styles.buttonOptions}>
+            <Link to="/Upload"><button className="pinkButton">Upload a receipt</button></Link>
+            <Link to="/Calculator"><button className="whiteButton">Split manually</button></Link>
+        </div>
+    );
 
     return (
         <>
@@ -13,15 +18,15 @@ const Home = () => {
                 <div className={styles.textContainer}>
                     <h1>Bill buddy</h1>
                     <h2>For when the check comes and no one wants to think.
-                    Enter your numbers, split the bill, done.</h2>
-                    {!isMobile && button}
+                        Enter your numbers, split the bill, done.</h2>
+                    {!isMobile && buttons}
                 </div>
                 <div className={styles.imageContainer}>
                 </div>
-                {isMobile && button}
+                {isMobile && buttons}
             </div>
         </>
     )
-}
+};
 
 export default Home;
