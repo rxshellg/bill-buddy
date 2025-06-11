@@ -31,3 +31,10 @@
     flex-direction: column;
     justify-content: flex-end;
 }
+
+.buttonOptions {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
