@@ -1,8 +1,15 @@
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Calculator from './pages/Calculator';
+
+import './index.css'
+
 const App = () => {
   return (
-    <>
-      <p>hi</p>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/Calculator" element={<Calculator />} />
+    </Routes>
   )
 };
 
