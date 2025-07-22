@@ -39,7 +39,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   cursor: url('/cursors/Yellow.png'), auto;
-  padding: 5%;
+  padding: 0 5%;
 }
 
 /* Headings */
