@@ -1,0 +1,33 @@
+.uploadPage {
+  display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    height: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.leftSide {
+    width: 60%;
+}
+
+.leftSide input{
+    width: 60%;
+}
+
+.previewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.previewImage {
+  border: 4px var(--primary-pink);
+  border-radius: 12px;
+  width: 100%;
+  object-fit: contain;
+  box-shadow: 0 4px 12px var(--primary-pink);
+}
