@@ -13,7 +13,7 @@ const Review = () => {
       .map((line: string) => line.trim())
       .filter(Boolean);
 
-    const combined = lines.flatMap((line, i) => {
+    const combined = lines.flatMap((line: string, i: number) => {
       const priceMatch = line.match(/^\$?\d{1,3}[.,]\d{2}$/);
       return priceMatch && i > 0 ? [`${lines[i - 1]} ${line}`] : [];
     });
@@ -21,7 +21,7 @@ const Review = () => {
     const bannedWords = ["total", "subtotal", "admin", "tax", "change", "instagram"];
 
     const parsed = combined
-  .map(line => {
+  .map((line: string) => {
     const match = line.match(/^(.+?)\s+\$?(\d{1,3}[.,]\d{2})$/);
     if (!match) return null;
 
