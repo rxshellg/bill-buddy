@@ -53,27 +53,28 @@ const Upload = () => {
   };
 
   return (
-    <div className={styles.uploadPage}>
-      <div className={styles.leftSide}>
-        <h2>Upload a Receipt</h2>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        {loading && <p>🔍 Scanning image for text…</p>}
-              {error && <p style={{ color: "red" }}>{error}</p>}
-              <Link to="/Review" state={{ ocrText }}>
-              <button className="pinkButton">Continue</button>
-            </Link>
-      </div>
-
-          {previewURL && (
-          <div className={styles.previewContainer}>
-            <img
-              src={previewURL}
-              alt="Receipt Preview"
-              className={styles.previewImage}
-            />
+      <div className={styles.desktopPage}>
+          <div className={styles.content}>
+              <div className={styles.uploadContainer}>
+                  <h2>Upload a Receipt</h2>
+                  <input type="file" accept="image/*" onChange={handleFileChange} />
+                  {loading && <p>🔍 Scanning image for text…</p>}
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                  <Link to="/Review" state={{ ocrText }}>
+                      <button className="pinkButton">Continue</button>
+                  </Link>
+              </div>
+              {previewURL && (
+                  <div className={styles.imageContainer}>
+                      <img
+                          src={previewURL}
+                          alt="Receipt Preview"
+                          className={styles.previewImage}
+                      />
                   </div>
-        )}
-    </div>
+              )}
+          </div>
+      </div>
   );
 };
 
