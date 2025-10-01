@@ -2,12 +2,22 @@ const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const vision = require("@google-cloud/vision");
-const path = require("path");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
-const upload = multer({ storage: multer.memoryStorage() });
+
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 8 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    if (!/^image\/(png|jpe?g|webp)$/i.test(file.mimetype)) {
+      return cb(new Error("Invalid file type"));
+    }
+    cb(null, true);
+  },
+});
 
 const client = new vision.ImageAnnotatorClient({
   credentials: JSON.parse(process.env.GOOGLE_VISION_CREDENTIALS),

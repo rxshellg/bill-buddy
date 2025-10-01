@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App.tsx'
 
-import './index.css'
+import "./bootstrap-partial.scss";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(

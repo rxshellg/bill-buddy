@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
 
 import styles from "./Upload.module.css";
 
@@ -8,6 +9,21 @@ const Upload = () => {
   const [ocrText, setOcrText] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    // Open modal automatically when page loads
+    setShow(true);
+  }, []);
+
+  const handleClose = () => setShow(false);
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = "/images/sampleReceipt.jpg";
+    link.download = "sampleReceipt.jpg";
+    link.click();
+  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -53,28 +69,42 @@ const Upload = () => {
   };
 
   return (
-      <div className={styles.desktopPage}>
-          <div className={styles.content}>
-              <div className={styles.uploadContainer}>
-                  <h2>Upload a Receipt</h2>
-                  <input type="file" accept="image/*" onChange={handleFileChange} />
-                  {loading && <p>🔍 Scanning image for text…</p>}
-                  {error && <p style={{ color: "red" }}>{error}</p>}
-                  <Link to="/Review" state={{ ocrText }}>
-                      <button className="pinkButton">Continue</button>
-                  </Link>
-              </div>
-              {previewURL && (
-                  <div className={styles.imageContainer}>
-                      <img
-                          src={previewURL}
-                          alt="Receipt Preview"
-                          className={styles.previewImage}
-                      />
-                  </div>
-              )}
+    <div className={styles.desktopPage}>
+      <div className={styles.content}>
+        <Modal show={show} onHide={handleClose} backdrop={true} backdropClassName="upload-backdrop">
+          <Modal.Header closeButton>
+            <Modal.Title><h2 style={{lineHeight: 0.3}}>Hello there! Recruiter? 👀</h2></Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{margin: "10px 0"}}>
+          Click below to download a sample receipt image
+          and try out the upload functionality.
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="pinkButton" onClick={handleDownload}>
+            Download Image
+            </button>
+          </Modal.Footer>
+        </Modal>
+        <div className={styles.uploadContainer}>
+          <h2>Upload a Receipt</h2>
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+          {loading && <p>🔍 Scanning image for text…</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          <Link to="/Review" state={{ ocrText }}>
+            <button className="pinkButton">Continue</button>
+          </Link>
+        </div>
+        {previewURL && (
+          <div className={styles.imageContainer}>
+            <img
+              src={previewURL}
+              alt="Receipt Preview"
+              className={styles.previewImage}
+            />
           </div>
+        )}
       </div>
+    </div>
   );
 };
 

@@ -34,3 +34,5 @@
   object-fit: contain;
   box-shadow: 0 4px 12px var(--primary-pink);
 }
+
+:global(.upload-backdrop) { opacity: 0.8 !important; }
