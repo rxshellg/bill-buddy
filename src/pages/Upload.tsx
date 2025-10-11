@@ -38,7 +38,7 @@ const Upload = () => {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:4000/ocr", {
+      const response = await fetch("/api/ocr", {
         method: "POST",
         body: formData,
       });
