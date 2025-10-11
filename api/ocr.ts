@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import formidable from "formidable";
+import formidable, { type Files as FormidableFiles } from "formidable";
 import fs from "node:fs/promises";
 
 export const config = {
@@ -9,11 +9,18 @@ export const config = {
   }
 };
 
+type VisionAnnotateResponse = {
+  responses?: Array<{
+    fullTextAnnotation?: { text?: string };
+    textAnnotations?: Array<{ description?: string }>;
+  }>;
+};
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
-  const apiKey = process.env.GOOGLE_VISION_CREDENTIALS;
-  if (!apiKey) return res.status(500).json({ error: "Missing GOOGLE_VISION_CREDENTIALS" });
+  const apiKey = process.env.GOOGLE_API_KEY;
+  if (!apiKey) return res.status(500).json({ error: "Missing GOOGLE_API_KEY" });
 
   try {
     // Parse the uploaded file (field name: "file")
@@ -24,7 +31,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         part.mimetype ? /^image\/(png|jpe?g|webp)$/i.test(part.mimetype) : false
     });
 
-    const { files }: any = await new Promise((resolve, reject) =>
+    const { files } = await new Promise<{ files: FormidableFiles }>((resolve, reject) =>
       form.parse(req, (err, _fields, files) => (err ? reject(err) : resolve({ files })))
     );
 
@@ -56,7 +63,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(502).json({ error: text });
     }
 
-    const data: any = await r.json();
+    const data = (await r.json()) as VisionAnnotateResponse;
     const resp = data?.responses?.[0] ?? {};
     const text =
       resp?.fullTextAnnotation?.text ??
@@ -65,8 +72,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!text) return res.status(200).json({ text: "", warning: "No text found" });
     return res.status(200).json({ text });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "OCR failed";
     console.error(err);
-    return res.status(500).json({ error: err?.message || "OCR failed" });
+    return res.status(500).json({ error: msg });
   }
 }
