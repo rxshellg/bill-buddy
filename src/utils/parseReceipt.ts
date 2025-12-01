@@ -1,6 +1,7 @@
 export type Item = { name: string; price: number; quantity: number };
 
 const PRICE_END = /\$?\s*(\d{1,4}[.,]\d{2})\s*$/i;
+const PRICE_LINE = /(.+?)\s+\$?\s*(\d{1,4}[.,]\d{2})\s*$/;
 const BANNED = ["total", "subtotal", "admin", "tax", "change", "instagram"];
 
 export function parseItems(ocrText: string): Item[] {
@@ -28,7 +29,7 @@ export function parseItems(ocrText: string): Item[] {
 
   const parsed = candidates
     .map(line => {
-      const m = line.match(new RegExp(`^(.+?)\\s+${PRICE_END.source}$`));
+      const m = line.match(PRICE_LINE)
       if (!m) return null;
 
       let rawName = m[1];
