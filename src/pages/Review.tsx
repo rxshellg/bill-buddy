@@ -7,10 +7,6 @@ const Review = () => {
   const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
-    console.log("OCR RAW TEXT:", JSON.stringify(ocrText));
-    console.log("LINES:", ocrText.split(/\r?\n/));
-    const parsed = parseItems(ocrText);
-    console.log("PARSED ITEMS:", parsed);
     setItems(parseItems(ocrText));
   }, [ocrText]);
 
