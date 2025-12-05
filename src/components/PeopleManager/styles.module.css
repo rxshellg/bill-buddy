@@ -1,0 +1,71 @@
+/* Container for chips */
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+/* Person chip */
+.personChip {
+  position: relative;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  text-transform: capitalize;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.personChip:hover {
+  opacity: 0.9;
+}
+
+.personChip:hover span {
+    visibility: hidden;
+}
+
+.personChip::after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.personChip:hover::after {
+    content: "✕";
+    opacity: 1;
+}
+
+
+/* Add person button */
+.addChip {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--primary-pink);
+  border: 2px solid var(--primary-pink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.addChip:hover {
+  background-color: var(--primary-pink);
+  color: #fff;
+}
+
+.personChip:focus,
+.addChip:focus {
+  outline: 3px solid rgba(198, 0, 90, 0.3);
+  outline-offset: 2px;
+}

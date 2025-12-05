@@ -1,9 +1,10 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { parseItems, type Item } from "../utils/parseReceipt";
 
 const Review = () => {
   const ocrText = useLocation().state?.ocrText || "";
+  const navigate = useNavigate();
   const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
@@ -22,6 +23,12 @@ const Review = () => {
       }
       return next;
     });
+  };
+
+  const handleContinue = () => {
+    // Only continue if there’s at least one item
+    if (!items.length) return;
+    navigate("/Split", { state: { items } });
   };
 
   return (
@@ -52,6 +59,13 @@ const Review = () => {
           />
         </div>
       ))}
+      <button
+          className="pinkButton"
+          onClick={handleContinue}
+          disabled={!items.length}
+        >
+          Continue to split
+        </button>
     </div>
   );
 };
