@@ -1,4 +1,4 @@
-export type Item = { name: string; price: number; quantity: number };
+import type { Item } from '../types';
 
 const BANNED = ["total", "subtotal", "admin", "tax", "change", "instagram"];
 
@@ -39,7 +39,14 @@ export function parseItems(ocrText: string): Item[] {
         return null;
       }
 
-      return { name, price, quantity } as Item;
+      return {
+        id: crypto.randomUUID(),
+        name,
+        price,
+        quantity,
+        assignedTo: [],
+        splitType: 'equal' as const
+      } as Item;
     })
     .filter(Boolean) as Item[];
 

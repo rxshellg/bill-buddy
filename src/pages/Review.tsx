@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { parseItems, type Item } from "../utils/parseReceipt";
+import { parseItems } from "../utils/parseReceipt";
+import type { Item } from "../types";
 
 const Review = () => {
   const ocrText = useLocation().state?.ocrText || "";

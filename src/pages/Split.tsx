@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import type { Item } from "../utils/parseReceipt";
+import type { Item } from "../types";
 import useIsMobile from "../hooks/useIsMobile";
 import { usePeople, PeopleChips, AddPersonModal } from "../components/PeopleManager";
 
