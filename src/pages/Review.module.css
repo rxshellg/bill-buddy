@@ -1,22 +1,110 @@
-.heading {
+/* Page layout */
+.desktopPage {
   padding: 2rem;
 }
 
-.item {
-  margin-bottom: 1rem;
+/* Card and list container */
+.card {
+  width: min(980px, 100%);
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  padding: 1.75rem;
+  box-shadow: 0 20px 50px rgba(140, 20, 70, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.empty {
+  margin: 0.5rem 0 1.25rem;
+  color: #374151;
+}
+
+.list {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.75rem;
+}
+
+/* Item rows and inputs */
+.item {
+  display: flex;
   align-items: center;
+  gap: 0.85rem;
+
+  padding: 0.3rem;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(240, 180, 205, 0.65);
 }
 
 .quantity {
-  width: 60px;
+  width: 44px;
+  height: 38px;
+  border: none;
+
+  text-align: center;
+
+  background: var(--primary-pink);
+  color: white;
+
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+/* Remove ugly number spinners (Chrome/Safari) */
+.quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.quantity[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .name {
   flex: 1;
+  padding: 0.5rem 0.25rem;
 }
 
 .price {
-  width: 100px;
+  width: 10%;
+  border: none;
+}
+
+/* Actions and footer */
+.deleteButton {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: white;
+  border: 1px solid rgba(210, 210, 210, 0.8);
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  transform: translateY(-1px);
+}
+
+.footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(240, 180, 205, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.subtotal {
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
 }
