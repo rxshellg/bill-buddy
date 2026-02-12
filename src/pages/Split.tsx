@@ -75,66 +75,73 @@ const Split = () => {
     <>
       <div className={isMobile ? styles.mobilePage : styles.desktopPage}>
         {/* Items & Assignment */}
-        <div className={styles.itemsContainer}>
-          <PeopleChips
-            people={people}
-            onAddClick={() => setShowAddPersonModal(true)}
-            onRemovePerson={removePerson}
-          />
+        <div className={styles.test}>
+          <div className={styles.itemsContainer}>
+            <PeopleChips
+              people={people}
+              onAddClick={() => setShowAddPersonModal(true)}
+              onRemovePerson={removePerson}
+            />
 
-          {/* Items table */}
-          <table>
-            {items.map((item) => (
-              <tr key={item.id}>
-                <td>{item.quantity}</td>
-                <td>{item.name}</td>
-                <td>${item.price.toFixed(2)}</td>
-                <td>
-                  <button
-                    className="pinkButton"
-                    onClick={() => openAssignModal(item)}
-                  >
-                    {itemAssignments[item.id]?.length > 0
-                      ? `Assigned (${itemAssignments[item.id].length})`
-                      : "Assign"}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </table>
+            {/* Items table */}
+            <table>
+              {items.map((item) => (
+                <tr key={item.id}>
+                  <td>
+                    <span className={styles.quantity}>{item.quantity}</span>
+                  </td>
+                  <td style={{ width: "80%" }}>
+                    <div className={styles.nameAndPrice}>
+                      <span>{item.name}</span>${item.price.toFixed(2)}
+                    </div>
+                  </td>
+                  <td className="text-end">
+                    <button
+                      className={`pinkButton ${styles.assignButton}`}
+                      onClick={() => openAssignModal(item)}
+                    >
+                      {itemAssignments[item.id]?.length > 0
+                        ? `Assigned (${itemAssignments[item.id].length})`
+                        : "Assign"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </table>
 
-          {/* Modals */}
-          <AddPersonModal
-            show={showAddPersonModal}
-            onClose={() => setShowAddPersonModal(false)}
-            onSubmit={(name, color) => addPerson(name, color)}
-          />
-          <AssignItemModal
-            show={itemBeingAssigned !== null}
-            item={itemBeingAssigned}
-            people={people}
-            currentAssignees={
-              itemBeingAssigned
-                ? itemAssignments[itemBeingAssigned.id] || []
-                : []
-            }
-            onClose={closeAssignModal}
-            onSave={saveAssignment}
-          />
-        </div>
+            {/* Modals */}
+            <AddPersonModal
+              show={showAddPersonModal}
+              onClose={() => setShowAddPersonModal(false)}
+              onSubmit={(name, color) => addPerson(name, color)}
+            />
+            <AssignItemModal
+              show={itemBeingAssigned !== null}
+              item={itemBeingAssigned}
+              people={people}
+              currentAssignees={
+                itemBeingAssigned
+                  ? itemAssignments[itemBeingAssigned.id] || []
+                  : []
+              }
+              onClose={closeAssignModal}
+              onSave={saveAssignment}
+            />
+          </div>
 
-        {/* Results */}
-        <div className={styles.resultsContainer}>
-          <div className={styles.resultsHeader}>Results</div>
-          <table>
-            {people.map((person) => (
-              <tr key={person.id}>
-                <td>{person.name}:</td>
-                <td>${personTotals[person.id]?.toFixed(2) || "0.00"}</td>
-              </tr>
-            ))}
-          </table>
-          <div className={styles.total}>Total: ${grandTotal.toFixed(2)}</div>
+          {/* Results */}
+          <div className={styles.resultsContainer}>
+            <div className={styles.resultsHeader}>Results</div>
+            <table>
+              {people.map((person) => (
+                <tr key={person.id}>
+                  <td>{person.name}:</td>
+                  <td>${personTotals[person.id]?.toFixed(2) || "0.00"}</td>
+                </tr>
+              ))}
+            </table>
+            <div className={styles.total}>Total: ${grandTotal.toFixed(2)}</div>
+          </div>
         </div>
       </div>
     </>
