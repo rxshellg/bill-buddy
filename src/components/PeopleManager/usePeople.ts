@@ -1,11 +1,5 @@
 import { useState } from "react";
-
-export type Person = {
-  id: string;
-  name: string;
-  color: string;
-  total: number;
-};
+import type { Person } from "../../types";
 
 export const DEFAULT_COLORS = [
   "#C6005A",
@@ -17,7 +11,10 @@ export const DEFAULT_COLORS = [
   "#6A4C93",
   "#6F1D1B",
   "#D4A373",
-  "#6B7280"
+  "#6B7280",
+  "#4B5320",
+  "#3A86FF",
+  "#d80606d7"
 ];
 
 export function usePeople(initial?: Person[]) {
@@ -29,28 +26,16 @@ export function usePeople(initial?: Person[]) {
         ? crypto.randomUUID()
         : Date.now().toString();
 
-    setPeople(prev => [...prev, { id, name, color, total: 0 }]);
+    setPeople(prev => [...prev, { id, name, color, items: [] }]);
   };
 
   const removePerson = (id: string) => {
     setPeople(prev => prev.filter(p => p.id !== id));
   };
 
-  const updateTotal = (id: string, amount: number) => {
-    setPeople(prev =>
-      prev.map(p =>
-        p.id === id ? { ...p, total: amount } : p
-      )
-    );
-  };
-
-  const grandTotal = people.reduce((sum, p) => sum + p.total, 0);
-
   return {
     people,
     addPerson,
-    removePerson,
-    updateTotal,
-    grandTotal
+    removePerson
   };
 }
