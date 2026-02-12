@@ -1,11 +1,11 @@
-import type { Item } from '../types';
+import type { Item } from "../types";
 
 const BANNED = ["total", "subtotal", "admin", "tax", "change", "instagram"];
 
 export function parseItems(ocrText: string): Item[] {
   const lines = ocrText
     .split(/\r?\n/)
-    .map(line => line.trim())
+    .map((line) => line.trim())
     .filter(Boolean);
 
   const combined = lines.flatMap((line, i) => {
@@ -14,7 +14,7 @@ export function parseItems(ocrText: string): Item[] {
   });
 
   const parsed = combined
-    .map(line => {
+    .map((line) => {
       const match = line.match(/^(.+?)\s+\$?(\d{1,4}[.,]\d{2})$/);
       if (!match) return null;
 
@@ -34,7 +34,7 @@ export function parseItems(ocrText: string): Item[] {
       if (
         !name ||
         Number.isNaN(price) ||
-        BANNED.some(w => name.toLowerCase().includes(w))
+        BANNED.some((w) => name.toLowerCase().includes(w))
       ) {
         return null;
       }
@@ -45,7 +45,7 @@ export function parseItems(ocrText: string): Item[] {
         price,
         quantity,
         assignedTo: [],
-        splitType: 'equal' as const
+        splitType: "equal" as const,
       } as Item;
     })
     .filter(Boolean) as Item[];

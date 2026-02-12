@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -38,7 +40,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  cursor: url('/cursors/Yellow.png'), auto;
+  cursor: url("/cursors/Yellow.png"), auto;
   padding: 0 5%;
 }
 
@@ -55,14 +57,18 @@ h1 {
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
   font-size: 1.125rem;
-  cursor: url('/cursors/Yellow.png'), auto;
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: url("/cursors/Yellow.png"), auto;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   font-weight: 500;
   font-family: inherit;
 }
 
 .whiteButton:hover {
-  box-shadow: 0 0 12px #db195a, 0 0 24px #db195a;
+  box-shadow:
+    0 0 12px #db195a,
+    0 0 24px #db195a;
   border: 2px solid #db195a;
   transform: scale(1.03);
 }
@@ -76,8 +82,10 @@ h1 {
   background-color: var(--primary-pink);
   padding: 0.75rem 1.5rem;
   font-size: 1.125rem;
-  cursor: url('/cursors/Yellow.png'), auto;
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: url("/cursors/Yellow.png"), auto;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   border: 2px solid var(--primary-pink);
   border-radius: 8px;
   font-weight: 500;
@@ -85,13 +93,17 @@ h1 {
 }
 
 .pinkButton:hover {
-  box-shadow: 0 0 5px var(--primary-pink), 0 0 14px var(--primary-pink);
+  box-shadow:
+    0 0 5px var(--primary-pink),
+    0 0 14px var(--primary-pink);
   border: 2px solid var(--primary-pink);
   transform: scale(1.03);
 }
 
 .pinkButtonActive {
-  box-shadow: 0 0 5px var(--primary-pink), 0 0 5px var(--primary-pink);
+  box-shadow:
+    0 0 5px var(--primary-pink),
+    0 0 5px var(--primary-pink);
   border: 2px solid var(--primary-pink);
   transform: scale(1.03);
 }

@@ -1,11 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
-import Calculator from './pages/Calculator';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Navbar from './components/Navbar';
-import Review from './pages/Review';
-import Split from './pages/Split';
+import Calculator from "./pages/Calculator";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Review from "./pages/Review";
+import Split from "./pages/Split";
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
       </Routes>
       <Footer />
     </>
-  )
+  );
 };
 
 export default App;

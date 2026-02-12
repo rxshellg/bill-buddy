@@ -14,7 +14,7 @@ export const DEFAULT_COLORS = [
   "#6B7280",
   "#4B5320",
   "#3A86FF",
-  "#d80606d7"
+  "#d80606d7",
 ];
 
 export function usePeople(initial?: Person[]) {
@@ -26,16 +26,16 @@ export function usePeople(initial?: Person[]) {
         ? crypto.randomUUID()
         : Date.now().toString();
 
-    setPeople(prev => [...prev, { id, name, color, items: [] }]);
+    setPeople((prev) => [...prev, { id, name, color, items: [] }]);
   };
 
   const removePerson = (id: string) => {
-    setPeople(prev => prev.filter(p => p.id !== id));
+    setPeople((prev) => prev.filter((p) => p.id !== id));
   };
 
   return {
     people,
     addPerson,
-    removePerson
+    removePerson,
   };
 }
