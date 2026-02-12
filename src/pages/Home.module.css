@@ -1,56 +1,56 @@
 .desktopHome {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .content {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 2rem;
 }
 
 .mobileHome {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 @media (max-width: 490px) {
-    .buttonOptions > * {
-        width: 100%;
-    }
-    
-    .buttonOptions > * > button {
-        width: 100%;
-    }
+  .buttonOptions > * {
+    width: 100%;
+  }
 
-    .imageContainer {
-        aspect-ratio: 1 / 1;
-    }
+  .buttonOptions > * > button {
+    width: 100%;
+  }
+
+  .imageContainer {
+    aspect-ratio: 1 / 1;
+  }
 }
 
 .imageContainer {
-    flex-shrink: 0;
-    min-height: 100px;
-    min-width: 100px;
-    display: flex;
-    justify-content: center;
+  flex-shrink: 0;
+  min-height: 100px;
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
 }
 
 .textContainer {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .buttonOptions {
-    display: flex;
-    gap: 1rem;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

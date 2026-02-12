@@ -27,7 +27,7 @@
 }
 
 .personChip:hover span {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .personChip::after {
@@ -41,10 +41,9 @@
 }
 
 .personChip:hover::after {
-    content: "✕";
-    opacity: 1;
+  content: "✕";
+  opacity: 1;
 }
-
 
 /* Add person button */
 .addChip {
@@ -56,7 +55,9 @@
   background-color: transparent;
   color: var(--primary-pink);
   border: 2px solid var(--primary-pink);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .addChip:hover {

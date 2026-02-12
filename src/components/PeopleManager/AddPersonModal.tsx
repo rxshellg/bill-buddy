@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import { DEFAULT_COLORS } from "./usePeople";
-import styles from './AddPersonModal.module.css';
+import styles from "./AddPersonModal.module.css";
 
 interface Props {
   show: boolean;
@@ -47,7 +47,7 @@ export default function AddPersonModal({ show, onClose, onSubmit }: Props) {
                 height: 28,
                 borderRadius: "50%",
                 border: color === c ? "3px solid #111" : "1px solid #aaa",
-                backgroundColor: c
+                backgroundColor: c,
               }}
             />
           ))}
@@ -58,7 +58,11 @@ export default function AddPersonModal({ show, onClose, onSubmit }: Props) {
         <button className="whiteButton" onClick={onClose}>
           Cancel
         </button>
-        <button className="pinkButton" onClick={handleAdd} disabled={!name.trim()}>
+        <button
+          className="pinkButton"
+          onClick={handleAdd}
+          disabled={!name.trim()}
+        >
           Add
         </button>
       </Modal.Footer>

@@ -7,7 +7,11 @@ interface Props {
   onRemovePerson: (id: string) => void;
 }
 
-export default function PeopleChips({ people, onAddClick, onRemovePerson }: Props) {
+export default function PeopleChips({
+  people,
+  onAddClick,
+  onRemovePerson,
+}: Props) {
   return (
     <div className={styles.chipsRow}>
       {people.map((p) => (
@@ -22,11 +26,7 @@ export default function PeopleChips({ people, onAddClick, onRemovePerson }: Prop
         </button>
       ))}
 
-      <button
-        type="button"
-        onClick={onAddClick}
-        className={styles.addChip}
-      >
+      <button type="button" onClick={onAddClick} className={styles.addChip}>
         + Add person
       </button>
     </div>

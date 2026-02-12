@@ -1,25 +1,25 @@
 .navbar {
-    width: 100%;
-    padding: 1rem 2rem;
-    background-color: white;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
-  
+
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-pink);
-    text-decoration: none;
-    transition: color 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-pink);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
-  
+
 .logo:hover {
-    color: #db195a;
-    cursor: url('/cursors/Yellow.png'), auto;
+  color: #db195a;
+  cursor: url("/cursors/Yellow.png"), auto;
 }

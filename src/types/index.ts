@@ -5,7 +5,7 @@ export type Item = {
   price: number;
   quantity: number;
   assignedTo: string[];
-  splitType: 'equal' | 'custom';
+  splitType: "equal" | "custom";
 };
 
 export type Person = {
@@ -18,5 +18,5 @@ export type Person = {
 export type Assignment = {
   itemId: string;
   personIds: string[];
-  splitType: 'equal' | 'custom';
+  splitType: "equal" | "custom";
 };

@@ -5,8 +5,8 @@ import fs from "node:fs/promises";
 export const config = {
   api: {
     bodyParser: false,
-    maxDuration: 10
-  }
+    maxDuration: 10,
+  },
 };
 
 type VisionAnnotateResponse = {
@@ -28,15 +28,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       multiples: false,
       maxFileSize: 8 * 1024 * 1024,
       filter: (part) =>
-        part.mimetype ? /^image\/(png|jpe?g|webp)$/i.test(part.mimetype) : false
+        part.mimetype
+          ? /^image\/(png|jpe?g|webp)$/i.test(part.mimetype)
+          : false,
     });
 
-    const { files } = await new Promise<{ files: FormidableFiles }>((resolve, reject) =>
-      form.parse(req, (err, _fields, files) => (err ? reject(err) : resolve({ files })))
+    const { files } = await new Promise<{ files: FormidableFiles }>(
+      (resolve, reject) =>
+        form.parse(req, (err, _fields, files) =>
+          err ? reject(err) : resolve({ files }),
+        ),
     );
 
     const file = Array.isArray(files.file) ? files.file[0] : files.file;
-    if (!file?.filepath) return res.status(400).json({ error: "No file uploaded" });
+    if (!file?.filepath)
+      return res.status(400).json({ error: "No file uploaded" });
 
     const buf = await fs.readFile(file.filepath);
     const content = buf.toString("base64");
@@ -51,11 +57,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           requests: [
             {
               image: { content },
-              features: [{ type: "TEXT_DETECTION" }]
-            }
-          ]
-        })
-      }
+              features: [{ type: "TEXT_DETECTION" }],
+            },
+          ],
+        }),
+      },
     );
 
     if (!r.ok) {
@@ -70,7 +76,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       resp?.textAnnotations?.[0]?.description ??
       "";
 
-    if (!text) return res.status(200).json({ text: "", warning: "No text found" });
+    if (!text)
+      return res.status(200).json({ text: "", warning: "No text found" });
     return res.status(200).json({ text });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "OCR failed";

@@ -12,27 +12,30 @@ const Review = () => {
     setItems(parseItems(ocrText));
   }, [ocrText]);
 
-  const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
   const hasItems = items.length > 0;
 
   const deleteItem = (id: string) => {
-    setItems(prev => prev.filter(item => item.id !== id));
+    setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const addNewItem = () => {
     const newItem: Item = {
       id: crypto.randomUUID(),
-      name: 'New Item',
+      name: "New Item",
       price: 0,
       quantity: 1,
       assignedTo: [],
-      splitType: 'equal'
+      splitType: "equal",
     };
-    setItems(prev => [...prev, newItem]);
+    setItems((prev) => [...prev, newItem]);
   };
 
   const updateItemField = (index: number, field: keyof Item, value: string) => {
-    setItems(prev => {
+    setItems((prev) => {
       const updated = [...prev];
 
       if (field === "price") {
@@ -60,25 +63,25 @@ const Review = () => {
       <h2>Review and Edit Items</h2>
 
       {/* Empty state */}
-      {!hasItems && (
-        <p>No items found. You can go back and try again.</p>
-      )}
+      {!hasItems && <p>No items found. You can go back and try again.</p>}
 
       {/* Items list */}
       {items.map((item, index) => (
         <div
           key={item.id}
           style={{
-            marginBottom: "1rem", display: "flex", gap: "1rem", alignItems: "center"
+            marginBottom: "1rem",
+            display: "flex",
+            gap: "1rem",
+            alignItems: "center",
           }}
         >
-          
           {/* Quantity */}
           <input
             type="number"
             min="1"
             value={item.quantity}
-            onChange={e => updateItemField(index, "quantity", e.target.value)}
+            onChange={(e) => updateItemField(index, "quantity", e.target.value)}
             style={{ width: "60px" }}
             aria-label={`Quantity for ${item.name}`}
           />
@@ -87,7 +90,7 @@ const Review = () => {
           <input
             type="text"
             value={item.name}
-            onChange={e => updateItemField(index, "name", e.target.value)}
+            onChange={(e) => updateItemField(index, "name", e.target.value)}
             style={{ flex: 1 }}
             aria-label="Item name"
           />
@@ -96,7 +99,7 @@ const Review = () => {
           <input
             type="text"
             value={`$${item.price.toFixed(2)}`}
-            onChange={e => updateItemField(index, "price", e.target.value)}
+            onChange={(e) => updateItemField(index, "price", e.target.value)}
             style={{ width: "100px" }}
             aria-label={`Price for ${item.name}`}
           />
@@ -115,14 +118,16 @@ const Review = () => {
       <div>Subtotal: ${subtotal.toFixed(2)}</div>
 
       {/* Action buttons */}
-      <button className="whiteButton" onClick={addNewItem}>+ Add Item</button>
+      <button className="whiteButton" onClick={addNewItem}>
+        + Add Item
+      </button>
       <button
-          className="pinkButton"
-          onClick={proceedToSplit}
-          disabled={!items.length}
-        >
-          Continue to split
-        </button>
+        className="pinkButton"
+        onClick={proceedToSplit}
+        disabled={!items.length}
+      >
+        Continue to split
+      </button>
     </div>
   );
 };
