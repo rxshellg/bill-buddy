@@ -124,32 +124,22 @@ const Home = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            <h2 style={{ lineHeight: 0.3 }}>Upload a receipt</h2>
+            <h2 className={styles.modalTitle}>Upload a receipt</h2>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p style={{ marginBottom: 12 }}>
+          <p className={styles.modalDescription}>
             Try BillBuddy with your own photo, or use our sample image to see
             the flow.
           </p>
           {loading && (
-            <p style={{ marginTop: 12 }}>🔍 Scanning image for text…</p>
+            <p className={styles.scanningText}>🔍 Scanning image for text…</p>
           )}
-          {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
+          {error && <p className={styles.errorText}>{error}</p>}
         </Modal.Body>
         <Modal.Footer>
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            <label
-              className="pinkButton"
-              style={{ margin: 0, cursor: "pointer" }}
-            >
+          <div className={styles.modalFooter}>
+            <label className="pinkButton">
               <input
                 ref={fileInputRef}
                 type="file"
