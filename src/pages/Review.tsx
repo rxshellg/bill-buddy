@@ -2,9 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { parseItems } from "../utils/parseReceipt";
 import type { Item } from "../types";
+import useIsMobile from "../hooks/useIsMobile";
 import styles from "./Review.module.css";
 
 const Review = () => {
+  const isMobile = useIsMobile();
   const ocrText = useLocation().state?.ocrText || "";
   const navigate = useNavigate();
   const [items, setItems] = useState<Item[]>([]);
@@ -60,67 +62,87 @@ const Review = () => {
   };
 
   return (
-    <div className={styles.heading}>
-      <h2>Review and Edit Items</h2>
+    <div className={isMobile ? styles.mobilePage : styles.desktopPage}>
+      <div className={styles.card}>
+        <h2>Review and Edit Items</h2>
 
-      {/* Empty state */}
-      {!hasItems && <p>No items found. You can go back and try again.</p>}
+        {/* Empty state */}
+        {!hasItems && (
+          <p className={styles.empty}>
+            No items found. You can go back and try again.
+          </p>
+        )}
 
-      {/* Items list */}
-      {items.map((item, index) => (
-        <div key={item.id} className={styles.item}>
-          {/* Quantity */}
-          <input
-            type="number"
-            min="1"
-            value={item.quantity}
-            onChange={(e) => updateItemField(index, "quantity", e.target.value)}
-            className={styles.quantity}
-            aria-label={`Quantity for ${item.name}`}
-          />
+        {/* Items list */}
+        <div className={styles.list}>
+          {items.map((item, index) => (
+            <div key={item.id} className={styles.item}>
+              {/* Quantity */}
+              <input
+                type="number"
+                min="1"
+                value={item.quantity}
+                onChange={(e) =>
+                  updateItemField(index, "quantity", e.target.value)
+                }
+                className={styles.quantity}
+                aria-label={`Quantity for ${item.name}`}
+              />
 
-          {/* Item name */}
-          <input
-            type="text"
-            value={item.name}
-            onChange={(e) => updateItemField(index, "name", e.target.value)}
-            className={styles.name}
-            aria-label="Item name"
-          />
+              {/* Item name */}
+              <input
+                type="text"
+                value={item.name}
+                onChange={(e) => updateItemField(index, "name", e.target.value)}
+                className={styles.name}
+                aria-label="Item name"
+              />
 
-          {/* Price */}
-          <input
-            type="text"
-            value={`$${item.price.toFixed(2)}`}
-            onChange={(e) => updateItemField(index, "price", e.target.value)}
-            className={styles.price}
-            aria-label={`Price for ${item.name}`}
-          />
+              {/* Price */}
+              <input
+                type="text"
+                value={`$${item.price.toFixed(2)}`}
+                onChange={(e) =>
+                  updateItemField(index, "price", e.target.value)
+                }
+                className={styles.price}
+                aria-label={`Price for ${item.name}`}
+              />
 
-          {/* Delete button */}
-          <button
-            onClick={() => deleteItem(item.id)}
-            aria-label={`Delete ${item.name}`}
-          >
-            🗑️
-          </button>
+              {/* Delete button */}
+              <button
+                onClick={() => deleteItem(item.id)}
+                aria-label={`Delete ${item.name}`}
+                className={styles.deleteButton}
+              >
+                🗑️
+              </button>
+            </div>
+          ))}
         </div>
-      ))}
 
-      {/* Summary section */}
-      <div>Subtotal: ${subtotal.toFixed(2)}</div>
+        <div className={styles.footer}>
+          {/* Summary section */}
+          <div className={styles.subtotal}>
+            Subtotal: ${subtotal.toFixed(2)}
+          </div>
 
-      {/* Action buttons */}
-      <button className="whiteButton" onClick={addNewItem}>
-        + Add Item
-      </button>
-      <button
-        className="pinkButton"
-        onClick={proceedToSplit}
-        disabled={!items.length}
-      >
-        Continue to split
-      </button>
+          {/* Action buttons */}
+          <div className={styles.actions}>
+            <button className="whiteButton" onClick={addNewItem}>
+              + Add Item
+            </button>
+
+            <button
+              className="pinkButton"
+              onClick={proceedToSplit}
+              disabled={!items.length}
+            >
+              Continue to split
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
