@@ -1,6 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import { DEFAULT_COLORS } from "./usePeople";
+import styles from './AddPersonModal.module.css';
 
 interface Props {
   show: boolean;
@@ -23,8 +24,8 @@ export default function AddPersonModal({ show, onClose, onSubmit }: Props) {
 
   return (
     <Modal show={show} onHide={onClose} centered backdrop>
-      <Modal.Header closeButton>
-        <Modal.Title>Add person</Modal.Title>
+      <Modal.Header>
+        <Modal.Title className={styles.modalTitle}>Add person</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -32,7 +33,6 @@ export default function AddPersonModal({ show, onClose, onSubmit }: Props) {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Enter name"
           style={{ width: "100%", marginBottom: 16 }}
         />
 

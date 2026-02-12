@@ -1,58 +1,144 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import AssignItemModal from "../components/AssignItemModal";
 import type { Item } from "../types";
 import useIsMobile from "../hooks/useIsMobile";
-import { usePeople, PeopleChips, AddPersonModal } from "../components/PeopleManager";
+import {
+  usePeople,
+  PeopleChips,
+  AddPersonModal,
+} from "../components/PeopleManager";
 
-import styles from './Split.module.css'
+import styles from "./Split.module.css";
 
 const Split = () => {
-    const isMobile = useIsMobile();
-    const { state } = useLocation() as { state?: { items?: Item[] } };
-    const { people, addPerson, removePerson, grandTotal } = usePeople([]);
-    const [showModal, setShowModal] = useState(false);
-    const items = state?.items || [];
-    
-    return (
-        <>
-            <div className={isMobile ? styles.mobilePage : styles.desktopPage}>
-                <div className={styles.itemsContainer}>
-                    <PeopleChips
-                        people={people}
-                        onAddClick={() => setShowModal(true)}
-                        onRemovePerson={removePerson}
-                    />
-                    <table>
-                        {items.map((item, i) => (
-                            <tr key={i}>
-                                <td>{item.quantity}</td>
-                                <td>{item.name}</td>
-                                <td>${item.price.toFixed(2)}</td>
-                                <td><button className="pinkButton">Assign</button></td>
-                            </tr>
-                        ))}
-                    </table>
-                    <AddPersonModal
-                        show={showModal}
-                        onClose={() => setShowModal(false)}
-                        onSubmit={(name, color) => addPerson(name, color)}
-                    />
-                </div>
-                <div className={styles.resultsContainer}>
-                    <div className={styles.resultsHeader}>Results</div>
-                    <table>
-                        {people.map((p) => (
-                            <tr key={p.id}>
-                                <td>{p.name}:</td>
-                                <td>${p.total.toFixed(2)}</td>
-                            </tr>
-                        ))}
-                    </table>
-                    <div className={styles.total}>Total: ${grandTotal.toFixed(2)}</div>
-                </div>
-            </div>
-        </>
-    );
-}
+  const isMobile = useIsMobile();
+  const [showAddPersonModal, setShowAddPersonModal] = useState(false);
+  const { people, addPerson, removePerson } = usePeople([]);
+  const { state } = useLocation() as { state?: { items?: Item[] } };
+  const items = state?.items || [];
+  const [itemBeingAssigned, setItemBeingAssigned] = useState<Item | null>(null);
+  const [itemAssignments, setItemAssignments] = useState<
+    Record<string, string[]>
+  >({});
+
+  // Sync assignment state with items on load
+  useEffect(() => {
+    const initialAssignments: Record<string, string[]> = {};
+    items.forEach((item) => {
+      initialAssignments[item.id] = item.assignedTo || [];
+    });
+    setItemAssignments(initialAssignments);
+  }, [items]);
+
+  const calculatePersonTotals = () => {
+    const totals: Record<string, number> = {};
+
+    people.forEach((p) => {
+      totals[p.id] = 0;
+    });
+
+    items.forEach((item) => {
+      const assignedPeople = itemAssignments[item.id] || [];
+      if (assignedPeople.length === 0) return;
+
+      const itemTotal = item.price * item.quantity;
+      const amountPerPerson = itemTotal / assignedPeople.length;
+
+      assignedPeople.forEach((personId) => {
+        totals[personId] = (totals[personId] || 0) + amountPerPerson;
+      });
+    });
+
+    return totals;
+  };
+
+  const personTotals = calculatePersonTotals();
+  const grandTotal = Object.values(personTotals).reduce(
+    (sum, total) => sum + total,
+    0,
+  );
+
+  const openAssignModal = (item: Item) => setItemBeingAssigned(item);
+  const closeAssignModal = () => setItemBeingAssigned(null);
+
+  const saveAssignment = (itemId: string, personIds: string[]) => {
+    // Keep existing assignments, update this item
+    setItemAssignments((currentAssignments) => ({
+      ...currentAssignments,
+      [itemId]: personIds,
+    }));
+    closeAssignModal();
+  };
+
+  return (
+    <>
+      <div className={isMobile ? styles.mobilePage : styles.desktopPage}>
+        {/* Items & Assignment */}
+        <div className={styles.itemsContainer}>
+          <PeopleChips
+            people={people}
+            onAddClick={() => setShowAddPersonModal(true)}
+            onRemovePerson={removePerson}
+          />
+
+          {/* Items table */}
+          <table>
+            {items.map((item) => (
+              <tr key={item.id}>
+                <td>{item.quantity}</td>
+                <td>{item.name}</td>
+                <td>${item.price.toFixed(2)}</td>
+                <td>
+                  <button
+                    className="pinkButton"
+                    onClick={() => openAssignModal(item)}
+                  >
+                    {itemAssignments[item.id]?.length > 0
+                      ? `Assigned (${itemAssignments[item.id].length})`
+                      : "Assign"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </table>
+
+          {/* Modals */}
+          <AddPersonModal
+            show={showAddPersonModal}
+            onClose={() => setShowAddPersonModal(false)}
+            onSubmit={(name, color) => addPerson(name, color)}
+          />
+          <AssignItemModal
+            show={itemBeingAssigned !== null}
+            item={itemBeingAssigned}
+            people={people}
+            currentAssignees={
+              itemBeingAssigned
+                ? itemAssignments[itemBeingAssigned.id] || []
+                : []
+            }
+            onClose={closeAssignModal}
+            onSave={saveAssignment}
+          />
+        </div>
+
+        {/* Results */}
+        <div className={styles.resultsContainer}>
+          <div className={styles.resultsHeader}>Results</div>
+          <table>
+            {people.map((person) => (
+              <tr key={person.id}>
+                <td>{person.name}:</td>
+                <td>${personTotals[person.id]?.toFixed(2) || "0.00"}</td>
+              </tr>
+            ))}
+          </table>
+          <div className={styles.total}>Total: ${grandTotal.toFixed(2)}</div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Split;

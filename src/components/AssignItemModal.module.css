@@ -1,0 +1,99 @@
+/* Modal Title*/
+.modalTitle {
+    font-weight: bold;
+}
+
+/* People Selection */
+.emptyState {
+  color: #999;
+  font-style: italic;
+  padding: 1rem;
+  text-align: center;
+}
+
+.peopleList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2%;
+}
+
+.personOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.personOption:hover {
+  border-color: var(--primary-pink);
+  background-color: #fef5f9;
+}
+
+.personOption.selected {
+  border-color: var(--primary-pink);
+  background-color: rgba(219, 25, 90, 0.08);
+}
+
+.checkbox {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.colorDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.personName {
+  flex: 1;
+}
+
+/* Split Preview */
+.splitPreview {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #fef5f9 0%, #f8f9fa 100%);
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #ffe6f0;
+}
+
+.splitLabel {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.splitAmount {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--primary-pink);
+  margin: 0;
+}
+
+/* Warning State */
+.warning {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #fff3cd;
+  border-radius: 8px;
+  text-align: center;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  font-size: 0.9rem;
+}
+
+.warning::before {
+  content: "⚠️ ";
+  margin-right: 0.5rem;
+}

@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import type { Person } from "./usePeople";
+import type { Person } from "../../types";
 
 interface Props {
   people: Person[];
