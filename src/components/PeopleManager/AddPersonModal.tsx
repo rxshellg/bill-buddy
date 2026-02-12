@@ -33,19 +33,17 @@ export default function AddPersonModal({ show, onClose, onSubmit }: Props) {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{ width: "100%", marginBottom: 16 }}
+          className={styles.nameInput}
         />
 
         <label>Pick a color</label>
-        <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+        <div className={styles.colorOptions}>
           {DEFAULT_COLORS.map((c) => (
             <button
               key={c}
               onClick={() => setColor(c)}
+              className={styles.colorBubble}
               style={{
-                width: 28,
-                height: 28,
-                borderRadius: "50%",
                 border: color === c ? "3px solid #111" : "1px solid #aaa",
                 backgroundColor: c,
               }}

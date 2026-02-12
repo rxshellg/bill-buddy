@@ -1,0 +1,22 @@
+.heading {
+  padding: 2rem;
+}
+
+.item {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.quantity {
+  width: 60px;
+}
+
+.name {
+  flex: 1;
+}
+
+.price {
+  width: 100px;
+}

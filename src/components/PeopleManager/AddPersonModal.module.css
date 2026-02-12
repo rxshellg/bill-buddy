@@ -2,3 +2,20 @@
 .modalTitle {
   font-weight: bold;
 }
+
+.nameInput {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.colorOptions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.colorBubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}

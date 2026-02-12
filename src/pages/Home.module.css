@@ -54,3 +54,27 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.modalTitle {
+  line-height: 0.3;
+}
+
+.modalDescription {
+  margin-bottom: 12px;
+}
+
+.scanningText {
+  margin-top: 12px;
+}
+
+.errorText {
+  color: red;
+  margin-top: 8px;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}

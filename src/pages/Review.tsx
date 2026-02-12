@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { parseItems } from "../utils/parseReceipt";
 import type { Item } from "../types";
+import styles from "./Review.module.css";
 
 const Review = () => {
   const ocrText = useLocation().state?.ocrText || "";
@@ -59,7 +60,7 @@ const Review = () => {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className={styles.heading}>
       <h2>Review and Edit Items</h2>
 
       {/* Empty state */}
@@ -67,22 +68,14 @@ const Review = () => {
 
       {/* Items list */}
       {items.map((item, index) => (
-        <div
-          key={item.id}
-          style={{
-            marginBottom: "1rem",
-            display: "flex",
-            gap: "1rem",
-            alignItems: "center",
-          }}
-        >
+        <div key={item.id} className={styles.item}>
           {/* Quantity */}
           <input
             type="number"
             min="1"
             value={item.quantity}
             onChange={(e) => updateItemField(index, "quantity", e.target.value)}
-            style={{ width: "60px" }}
+            className={styles.quantity}
             aria-label={`Quantity for ${item.name}`}
           />
 
@@ -91,7 +84,7 @@ const Review = () => {
             type="text"
             value={item.name}
             onChange={(e) => updateItemField(index, "name", e.target.value)}
-            style={{ flex: 1 }}
+            className={styles.name}
             aria-label="Item name"
           />
 
@@ -100,7 +93,7 @@ const Review = () => {
             type="text"
             value={`$${item.price.toFixed(2)}`}
             onChange={(e) => updateItemField(index, "price", e.target.value)}
-            style={{ width: "100px" }}
+            className={styles.price}
             aria-label={`Price for ${item.name}`}
           />
 
